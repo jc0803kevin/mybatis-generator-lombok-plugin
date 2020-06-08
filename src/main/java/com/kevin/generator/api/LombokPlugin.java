@@ -101,7 +101,6 @@ public class LombokPlugin extends PluginAdapter {
             }
             String value = properties.getProperty(annotationName);
             if (!Boolean.parseBoolean(value)) {
-                // The annotation is disabled, skip it
                 continue;
             }
             Annotations annotation = Annotations.getValueOf(annotationName);
@@ -119,6 +118,7 @@ public class LombokPlugin extends PluginAdapter {
                 annotations.add(annotation);
                 annotations.addAll(Annotations.getDependencies(annotation));
             }
+            annotations.add(annotation);
         }
     }
 
