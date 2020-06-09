@@ -48,6 +48,43 @@ generateConfig添加系列配置
 
 ```
 
+## 生成实体
+```java
+
+import java.io.Serializable;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+/**
+ * @author   kevin
+ * @date   2020-06-08 17:13:53
+ */
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+public class LombokTest implements Serializable {
+    /**
+     * ID
+     */
+    private Long id;
+
+    /**
+     * 名称
+     */
+    private String name;
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+}
+```
+
 
 ## 更多参考
 https://github.com/itfsw/mybatis-generator-plugin
