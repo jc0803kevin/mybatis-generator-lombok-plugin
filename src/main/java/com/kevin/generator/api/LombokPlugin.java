@@ -1,5 +1,6 @@
 package com.kevin.generator.api;
 
+import org.apache.commons.lang3.StringUtils;
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.PluginAdapter;
@@ -55,16 +56,23 @@ public class LombokPlugin extends PluginAdapter {
         // 给每个字段加注释
         for (Field field : fields) {
             StringBuilder fieldSb = new StringBuilder();
-            field.addJavaDocLine("/**");
-            fieldSb.append(" * ");
             String fieldName = field.getName(); // java字段名是驼峰的，需要转成下划线分割
             String underlineFieldName = camelToUnderline(fieldName);
             IntrospectedColumn introspectedColumn = introspectedTable.getColumn(underlineFieldName);
+
             if (null != introspectedColumn) {
-                fieldSb.append(introspectedColumn.getRemarks());
+                if(StringUtils.isNotBlank(introspectedColumn.getRemarks())){
+                    field.addJavaDocLine("/**");
+                    fieldSb.append(" * ");
+                    fieldSb.append(introspectedColumn.getRemarks());
+                    field.addJavaDocLine(fieldSb.toString().replace("\n", " "));
+                    field.addJavaDocLine(" */");
+                }else {
+                    //表没有写注释 不生成
+                    continue;
+                }
             }
-            field.addJavaDocLine(fieldSb.toString().replace("\n", " "));
-            field.addJavaDocLine(" */");
+
         }
 
         addAnnotations(topLevelClass);
