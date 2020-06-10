@@ -78,9 +78,6 @@ public class LombokTest implements Serializable {
      */
     private String name;
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = 1L;
 }
 ```
@@ -88,4 +85,5 @@ public class LombokTest implements Serializable {
 
 ## 更多参考
 https://github.com/itfsw/mybatis-generator-plugin
+
 MyBatisCodeHelperPro
